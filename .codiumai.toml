@@ -1,0 +1,45 @@
+# .codiumai.toml
+
+[tests]
+# Specify the testing framework (React Testing Library in this case)
+framework = "React Testing Library"
+
+# Additional utility library for JavaScript (React Testing Library)
+utility_library = "Testing Library"
+
+# Example reference test for React component
+reference_test = """
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import YourComponent from './YourComponent';
+
+describe('YourComponent', () => {
+  it('renders without errors', () => {
+    render(<YourComponent />);
+    expect(screen.getByText('Your Component Text')).toBeInTheDocument();
+  });
+
+  // Add more test cases as needed
+});
+"""
+
+# Whether to use mocks or not (true or false)
+use_mocks = true
+
+# Number of tests to generate by default
+num_desired_tests = 2
+
+[tests.javascript]
+# Override the test process's "current working directory"
+# This is a path relative to the location of the config file
+overrideTestRunCwd = "./src"
+
+# Command used to run tests
+# Use 'npx' to run Jest with the placeholder TEST_FILEPATH
+overrideTestRunScript = "npx jest --runTestsByPath TEST_FILEPATH"
+
+# Additional import declarations added at the beginning of each test file
+overrideImports = """
+import '@testing-library/jest-dom';
+// Add any additional imports as needed
+"""
